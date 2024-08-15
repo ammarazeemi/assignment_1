@@ -7,6 +7,5 @@ urlpatterns = [
         path('verification/', views.email_authenticate, name='email_authenticate'),
         path('authorization/', views.authorization, name='authorization'),
         path('records/', views.records, name='records'),
-        path('change_password', views.change_password, name='change_pass')
-        
+        path('change_password/', views.change_password, name='change_pass')       
 ]

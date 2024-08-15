@@ -99,22 +99,32 @@ def records(request):
             
         elif request.POST.get('update_product') == 'update_product':
             try:
-                Records.objects.filter(id=request.POST.get('id')).update(
-                    title=request.POST.get('title'),
-                    brand=request.POST.get('brand'),
-                    category=request.POST.get('category'),
-                    description=request.POST.get('description'),
-                    price=request.POST.get('price'),
-                    qty=request.POST.get('qty'),
-                    updated_at=datetime.now()
-                )
-                context = {'record': Records.objects.get(id=request.POST.get('id'))}
+                # Extract the id from POST data
+                record_id = request.POST.get('id')
+
+                # Check if the record exists
+                record = Records.objects.get(id=record_id)
+
+                # Update the record fields
+                record.title = request.POST.get('title')
+                record.brand = request.POST.get('brand')
+                record.category = request.POST.get('category')
+                record.description = request.POST.get('description')
+                record.price = request.POST.get('price')
+                record.qty = request.POST.get('qty')
+                record.updated_at = datetime.now()
+
+                # Save the updated record
+                record.save()
+
+                return redirect('records')
             except:
                 return render(request, 'records.html', {'msg': 'Product not found'})
             
         elif request.POST.get('delete_product') == 'delete_product':
             try:
-                Records.objects.filter(id=request.POST.get('id')).delete().save()
+                Records.objects.filter(id=request.POST.get('id')).delete()
+                return redirect('records')
             except:
                 return render(request, 'records.html', {'msg': 'Product not found'})
     
@@ -123,7 +133,7 @@ def records(request):
     return render(request, 'records.html', {'records1': records, 'category1': category})
 
 def change_password(request):
-    if request.method == 'POST':
+    if (request.method == 'POST'):
         new_password = request.POST.get('new_password')
         confirm_password = request.POST.get('confirm_password')
         
