@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="{% static 'css/signup_flow.css' %}">
+   </head>
+<body>
+  <div class="wrapper">
+    <h2>SIGN IN</h2>
+    <form action="{% url 'signin' %}" method="post">
+      {% csrf_token %}
+      {% if msg is not null %}
+        <p style="color: red;">{{msg}}</p>
+      {% endif %}
+      <div class="input-box">
+        <input type="email" name="email" placeholder="Email" required>
+      </div>
+      <div class="input-box">
+        <input type="password" name="password" placeholder="Password" required>
+      </div>
+      <div class="text">
+        <a href="{% url 'email_authenticate' %}">Forget Password?</a>
+      </div>
+      <div class="input-box button">
+        <input type="Submit" value="SIGN IN">
+      </div>
+      <div class="text">
+        <h3>Don't have an account? <a href="{% url 'signup' %}">Signup now</a></h3>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

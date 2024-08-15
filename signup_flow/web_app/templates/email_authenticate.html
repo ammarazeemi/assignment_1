@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/email_authenticate.css' %}">
+    <title>Email Validation</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Enter Your Email</h2>
+        <form action="{% url 'email_authenticate' %}" method="post">
+            {% csrf_token %}
+            <p>Enter Your Account Email to get OTP</p>
+            <input id="email" type="text" name="email" placeholder="Email">
+            <br>
+            <input id = "submit" type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
